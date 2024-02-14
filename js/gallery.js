@@ -1,6 +1,5 @@
 `use strict`;
 
-import { * as basicLightbox } from 'basiclightbox';
 const images = [
   {
     preview:
@@ -88,39 +87,23 @@ images.forEach((image) => {
 
 galleryList.innerHTML = allImages;
 
-const galleryLinks = document.querySelectorAll('.gallery-link');
-
+galleryLinks = document.querySelectorAll('.gallery-link');
 
 galleryLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log(instance.show(event.target.src));
-    console.log(event.target.src);
+    const instance = basicLightbox.create(`
+        <img
+            class="gallery__image"
+            src="${event.target.dataset.source}"
+        />`)
+
+    instance.show()
+
+    galleryList.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            instance.close()
+        }
+    })
   });
 });
-
-
-// const body = document.body;
-// const galleryItems = document.querySelectorAll('.gallery-item');
-// const galleryImages = document.querySelectorAll('.gallery-image');
-
-// body.style.paddingLeft = '156px';
-// body.style.paddingTop = '100px';
-
-// galleryList.style.width = '1128px';
-// galleryList.style.display = 'grid';
-// galleryList.style.gridTemplateColumns = 'repeat(3, 1fr)';
-// galleryList.style.rowGap = '24px';
-// galleryList.style.columnGap = '24px';
-
-// galleryItems.forEach((item) => {
-//   item.style.width = '360px';
-//   item.style.height = '200px';
-// });
-
-// galleryImages.forEach((image) => {
-//   image.style.width = '100%';
-//   image.style.height = '100%';
-// });
-
-
