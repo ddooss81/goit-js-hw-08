@@ -1,5 +1,6 @@
 `use strict`;
 
+import { * as basicLightbox } from 'basiclightbox';
 const images = [
   {
     preview:
@@ -66,13 +67,60 @@ const images = [
   },
 ];
 
-<li class="gallery-item">
-  <a class="gallery-link" href="large-image.jpg">
-    <img
-      class="gallery-image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
-    />
-  </a>
-</li>
+const galleryList = document.querySelector(".gallery");
+
+let allImages = '';
+
+images.forEach((image) => {
+  allImages += `
+  <li class="gallery-item">
+    <a class="gallery-link" href="${image.original}">
+      <img
+        class="gallery-image"
+        src="${image.preview}"
+        data-source="${image.original}"
+        alt="${image.description}"
+      />
+    </a>
+  </li>
+  `;
+});
+
+galleryList.innerHTML = allImages;
+
+const galleryLinks = document.querySelectorAll('.gallery-link');
+
+
+galleryLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log(instance.show(event.target.src));
+    console.log(event.target.src);
+  });
+});
+
+
+// const body = document.body;
+// const galleryItems = document.querySelectorAll('.gallery-item');
+// const galleryImages = document.querySelectorAll('.gallery-image');
+
+// body.style.paddingLeft = '156px';
+// body.style.paddingTop = '100px';
+
+// galleryList.style.width = '1128px';
+// galleryList.style.display = 'grid';
+// galleryList.style.gridTemplateColumns = 'repeat(3, 1fr)';
+// galleryList.style.rowGap = '24px';
+// galleryList.style.columnGap = '24px';
+
+// galleryItems.forEach((item) => {
+//   item.style.width = '360px';
+//   item.style.height = '200px';
+// });
+
+// galleryImages.forEach((image) => {
+//   image.style.width = '100%';
+//   image.style.height = '100%';
+// });
+
+
