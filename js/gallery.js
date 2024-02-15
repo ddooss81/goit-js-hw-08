@@ -66,44 +66,31 @@ const images = [
   },
 ];
 
-const galleryList = document.querySelector(".gallery");
+const galleryList = document.querySelector('.gallery');
 
 let allImages = '';
 
 images.forEach((image) => {
   allImages += `
-  <li class="gallery-item">
-    <a class="gallery-link" href="${image.original}">
-      <img
-        class="gallery-image"
-        src="${image.preview}"
-        data-source="${image.original}"
-        alt="${image.description}"
-      />
-    </a>
-  </li>
+    <li class="gallery-item">
+      <a class="gallery-link" href="${image.original}">
+        <img
+          class="gallery-image"
+          src="${image.preview}"
+          data-source="${image.original}"
+          alt="${image.description}"
+        />
+      </a>
+    </li>
   `;
 });
 
 galleryList.innerHTML = allImages;
 
-galleryLinks = document.querySelectorAll('.gallery-link');
-
-galleryLinks.forEach((link) => {
-  link.addEventListener('click', (event) => {
+const doIt = document.addEventListener('click', (event) => {
+  if (event.target.nodeName === 'IMG') {
     event.preventDefault();
-    const instance = basicLightbox.create(`
-        <img
-            class="gallery__image"
-            src="${event.target.dataset.source}"
-        />`)
-
-    instance.show()
-
-    galleryList.addEventListener('keydown', event => {
-        if (event.key === 'Escape') {
-            instance.close()
-        }
-    })
-  });
+    const instance = basicLightbox.create(`<img src="${event.target.dataset.source}" />`)
+    instance.show();
+  }
 });
