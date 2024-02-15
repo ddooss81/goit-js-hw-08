@@ -87,10 +87,12 @@ images.forEach((image) => {
 
 galleryList.innerHTML = allImages;
 
-const doIt = document.addEventListener('click', (event) => {
-  if (event.target.nodeName === 'IMG') {
-    event.preventDefault();
-    const instance = basicLightbox.create(`<img src="${event.target.dataset.source}" />`)
+function galleryImgClick(eventClick) {
+  if (eventClick.target.nodeName === 'IMG') {
+    eventClick.preventDefault();
+    const instance = basicLightbox.create(`<img src="${eventClick.target.dataset.source}" />`);
     instance.show();
   }
-});
+}
+
+galleryList.addEventListener('click', galleryImgClick);
